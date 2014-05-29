@@ -1,0 +1,8 @@
+/* Make map full screen on device */
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map {
+    height: 100%;
+}

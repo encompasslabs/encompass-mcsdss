@@ -1,0 +1,402 @@
+/* MCSDSS General */
+
+body {
+    overflow: hidden;
+}
+
+td {
+    padding: 2px;
+}
+
+/* MCSDSS IDs */
+
+#headerView {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    padding: 2px;
+    border: solid 1px #000000;
+    background-color: #0B2E33;
+    color: #ffffff;
+    text-align: center;
+    line-height: 20%;
+}
+
+#navigationView {
+    position: absolute;
+    width: 100%;
+    height: 74px;
+    top: 60px;
+    padding: 2px;
+    border: solid 1px #000000;
+    background-color: #2F3E31;
+    color: #FFFFFF;
+    text-align: center;
+    margin-right: 30px;
+    font-size: 0.7em;
+}
+
+#navTable {
+    width: 50%;
+}
+
+#map {
+    position: absolute;
+    width: 100%;
+    top: 140px;
+    bottom: 0;
+}
+
+#legendView {
+    position: absolute;
+    width: 140px;
+    top: 150px;
+    left: 50px;
+    padding: 3px;
+    border: solid 2px #000000;
+    background-color: #E3DEC8;
+}
+
+#settingsView {
+    position: absolute;
+    width: 275px;
+    top: 150px;
+    left: 210px;
+    padding: 3px;
+    opacity: 1.0;
+    /* filter: alpha(opacity=40);*/ /* Not sure what this is used for yet... */
+    border: solid 2px #000000;
+    background-color: #E3DEC8;
+}
+
+#chartView {
+    position: absolute;
+    width: 490px;
+    top: 150px;
+    left: 500px;
+    padding: 3px;
+    border: solid 2px #000000;
+    background-color: #E3DEC8;
+}
+
+#exportView {
+    position: absolute;
+    width: 480px;
+    top: 200px;
+    left: 530px;
+    padding: 3px;
+    border: solid 2px #000000;
+    background-color: #E3DEC8;
+}
+
+#footerView {
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    border: solid 1px #000000;
+    background-color: #373525;
+    text-align: center;
+    color: #aaaaaa;
+    font-size: 10px;
+    display: inline;
+}
+
+#moreInfoIcon {
+    height: 40%;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+/* MCSDSS Classes */
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mapResetBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.return.png');*/
+    background-image:url('../images/icons/dark/appbar.return.png');
+    background-repeat:no-repeat;
+}
+
+.mapLegendBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.key.png');*/
+    background-image:url('../images/icons/dark/appbar.key.png');
+    background-repeat:no-repeat;
+}
+
+.mapLayersBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.map.png');*/
+    background-image:url('../images/icons/dark/appbar.map.png');
+    background-repeat:no-repeat;
+}
+
+.mapSettingsBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.cog.png');*/
+    background-image:url('../images/icons/dark/appbar.cog.png');
+    background-repeat:no-repeat;
+}
+
+.dataSettingsBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.database.png');*/
+    background-image:url('../images/icons/dark/appbar.database.png');
+    background-repeat:no-repeat;
+}
+
+.dataChartBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.table.png');*/
+    background-image:url('../images/icons/dark/appbar.table.png');
+    background-repeat:no-repeat;
+}
+
+.dataGraphBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.graph.bar.png');*/
+    background-image:url('../images/icons/dark/appbar.graph.bar.png');
+    background-repeat:no-repeat;
+}
+
+.dataExportBtnIcon {
+    height: 50px;
+    width: 50px;
+    background-color: #222222;
+    background-size: 100%;
+    background-size: cover;
+/*    background-image:url('../images/icons/light/appbar.disk.download.png');*/
+    background-image:url('../images/icons/dark/appbar.disk.download.png');
+    background-repeat:no-repeat;
+}
+
+.dragBar {
+    text-align: right;
+    min-width: 100%;
+    min-height: 2.0em;
+    background-color: #393D3E;
+}
+
+.hideIt {
+    width: 80px; /*20% */
+    margin: 3px;
+}
+
+/* View Panels */
+
+/* --the main container  */
+.slider {
+    margin-left: 0px;
+    width: 98%;
+    font-size: small;
+    border: solid 2px #000000;
+    margin-top: 0px;
+    background-color: #E3DEC8;
+/*    background-image: url(../images/sliderbg.png);*/
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+
+/* ===================================================================================================== */
+
+/*
+Francesca's Kuler schemes
+Chart Colors (Vivid):
+EARTH CHART LIGHT (Green - Gold):       https://kuler.adobe.com/gr---or-color-theme-3462824/
+EARTH CHART DARK (Green - Brown):        https://kuler.adobe.com/2-gr-br-color-theme-3120542/
+WATER CHART DARK (Blue - Plum):         https://kuler.adobe.com/blue_purp1-color-theme-3467180/
+WATER CHART LIGHT (Blue = Aqua Blue):     https://kuler.adobe.com/Blues2hue-color-theme-3185044/
+Backing Colors (Muted):
+EARTH BG (Foam Green - Deep Green):     https://kuler.adobe.com/Copy-of-mix-gr-color-theme-3152426/
+WATER BG (Blue - Foam Green):           https://kuler.adobe.com/blue-to-BG-lt-color-theme-2031040/
+NEUTRALS BG (Grey - Cream):             https://kuler.adobe.com/Sliders-Grey-color-theme-2038415/
+=======================================================
+BUSTED:     https://kuler.adobe.com/blue2-color-theme-2121815/
+*/
+
+/* ===================================================================================================== */
+/* Still figuring out what these are for. */
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: #ccc;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.legend {
+    text-align: left;
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* ALL CSS from widgets.css file */
+
+
+/* This is the div that is the background for the selection bar   */
+.holder {
+    height: 1em;
+    width: 100%;
+    border: solid 1px #000000;
+}
+
+/*  This is the div that is currently red--displays value as bar
+across the widget  */
+.bar {
+    height: 100%;
+    width: 10%;
+    background-color: #009955;
+}
+
+/*---master slider---*/
+
+#masterSlide {
+    height: 4em;
+    width: 100%;
+    /*border: 2px black solid;*/
+}
+
+/*---non-moving (blue) bar */
+
+.masterHolder {
+    height: 30%;
+    width: 100%;
+    background-color: #009955;
+    margin-bottom: .5em;
+}
+
+.masterSelect {
+    height: 100%;
+    background-color: #005599;
+}
+
+/*-----------spacing between spans  */
+
+#rightSet {
+    margin-left: 10px;
+}
+
+/*  Set styles for "hide" buttons and drag bars */
+
+.cBlock {
+    margin-left: 3px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    width: 16px;
+    min-height: 16px;
+    border: solid 1px #000000;
+}
+
+#slideDiv {
+    width: 275px;
+}
+
+
+/*   class=descript the top div that holds the description  --empty here                  */
+.descript {}
+
+/* The span that holds the actual text in the top div   */
+.descSpan {}
+
+/* The entire bottom div that contains the buttons and numerical display*/
+.control {}
+
+/* class for the span which contains the word LOCK      */
+.lock {}
+
+/* class="check" input of type checkbox*/
+.check {}
+
+/* class for button element that displays the minus sign   */
+.minusB {}
+
+/* class for button element that displays '+' sign  */
+.plusB {}
+
+/* span that contains numerical display of value*/
+.counter {}
+
+/* This is the HR that separates the two sets of sliders*/
+
+#divider1 {
+    /*height: 20px;
+    color: black;
+    background-color:blue;*/
+}
+
+/*---------------------------Playing around with positioning "floats"  */
+
+
+/*
+#export{
+position: absolute;
+width: 75%;
+background-color: white;
+border: 2px black solid;
+}
+
+#chartCont{
+background-color:white;
+position: absolute;
+width: 75%;
+border: 2px black solid;
+}
+
+*/
+
+/*#leg2 {position: absolute; float: right; top: 0px; right: 0px;}*/
+
+/*#legend{position: absolute; float: right;}*/
+
+/*#radio { float: left; }*/
+
+/*#export {position: absolute; top: -5000px; left: -5000px;}
+#chartCont {position: absolute; top: -5000px; left: -5000px;}*/
+
+

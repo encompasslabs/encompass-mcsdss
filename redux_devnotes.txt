@@ -1,0 +1,109 @@
+Refactoring UI form base Heatseeker Application.
+2014.02.10 - John Gentle
+
+||===================================||
+
+TODO:
+
+- Remove all js from index.html page (externalize).
+- Remove all css from the index.html page (externalize).
+- Refactor index.html to adhere to JS best-practices.
+- Modularize all external JS code to reduce coupling.
+- Introduce dynamic styling capability to UI.
+- Introduce KineticJS dependency for touch-interactions.
+- Refactor entire application for NodeJS and AngularJS.
+
+||===================================||
+
+LOG:
+
+== 2014.02.10 ==
+
+UI Exploration (Heatseeker DNoll Version):
+
+- UI General
+	-- takes a long time to load. 
+	-- need to determine what components are taking so long and defer them if possible.
+	-- need better initial positioning of components.
+	-- not all components need to be visible at startup (if any).
+
+- UI-Control:ButtonBar-Component
+	-- only toggles the components to display.
+	-- Need to toggle when clicked, not just turn on.
+
+-- UI-Control:ButtonBar:Reset-Button 
+	-- clears the current attribute selections and resets the Legend and Grid components.
+
+- UI-View:Legend-Component
+	-- Should be better contextualized alongside the UI-View:Select-Component which dictates the Legend tytpe displayed.
+
+- Console Output
+	-- spritesheet.png
+		--- was not provided locally, added into codebase.
+
+	-- usersnap.js 
+		--- will not load locally (cross-domain restriction enforced).
+		--- need to externalize the usersnap config for screenshots.
+			---- moved to mcsdss-main.js for now.
+			---- need to pass this value into the mian usersnap config method.
+		--- added local usersnap.js file and edited function to point to local file for now.
+			---- generates new error: 
+				GET file://d3mvnvhjmkxpjz.cloudfront.net/js/5300/usersnap-5300-en.js 
+			---- fails to load resource on line 17 of usersnap.js.
+				----- thinks that _usersnapconfig is undefined.
+				----- passed in _usersnapconfig var from mcsdss-main.js to the anonymous function in usersnap.js, still getting undefined error.
+		--- OR find a better screenshot solution?
+			---- Try html2canvas.hertzen.com - uses native canvas calls, no server side processing. 
+			---- Need to test this method for accuracy as it recreates the DOM object independently of what is on screen for the image.
+
+	-- vkboardsc.js
+		--- In what use case would we need this component?
+			---- touch-enabled screens have native keyboard objects for use.
+			---- non-touch displays have no use for this.
+		--- apparently there is no uniform way to access the native virtual keyboard in a given device. Use of a 3rd party lib will help here.
+			---- a better vkeyboard is here: allanguages.info/#layouts=
+
+Update: Managed to get all styles and code into external files without anything breaking (aside form cross-domain related issues).
+
+Next up: Need to consolidate all code and start to deconstruct from monolithic JS and CSS files instead of trying to sort through various piece parts.
+
+- heading home for the day.
+
+== 2014.02.11 ==
+
+Refactoring:
+
+- Regrouped files
+	-- all seperate js files into one monolith to better refactor into modular patterns.
+	-- all CSS into one file.
+
+- NOTE: Mapbox is built on top of Leaflet.
+
+- Created leaflet-test.html to determine role of Leaflet in MCSDSS.
+	-- Leaflet has newer version available and cdn support - convert to this for production.
+	-- Leaflet has node integration - use this when migrating to angular.
+
+- Created mapbox-test.html to determine role of Mapbox in MCSDSS.
+	-- Mapbox has newer version available and cdn support - convert to this for production.
+	-- Mapbox has node integration - use this when migrating to angular.
+
+== 2014.02.19 ==
+
+Lost the thread on my log for a while - much to update!
+
+- All the Heatseeker code has been refactored into modules. The only issue at this point is the map reset button functionality seems to be busted, but I am going to reimplement the UI soon so not spending timew on that right now. Otherwise we are finally starting to move towards a flexible design.
+
+- Working currently on internally decoupling the modules so that they are flexible and can support new data and capabilities.
+
+- Overhauled the UI to use iconography (found a great free icon library and used it!) and adjusted the component layout so it is not so difficult to use. Components do not appear until toggled on by default. Components are properly positioned to avoid overlapping.
+
+- Will need to cleanup individual component layouts (like the chrt view that doesnt scroll but is too long for the screen!) but again - waiting until further refactoring is complete before doing UI tweaks.
+
+- Found out that AngularJS supports both touch/gesture support and has D3.js and Three.js addons available, eliminating the need for additional 3rd party libraries.
+
+- Today I will be working through the updated APIs for Leaflet and Mapbox (now a Leaflet plugin) to ensure that I fully understand their potential and role in the new MCSDSS v2.0 design.
+
+- Need to become more familiar with the GeoJSON spec - it is the data structure being used ot drive the application. Current Idaho test data is in GeoJSON (thogh not exactly according to spec - though not an issue since the data gets parsed and processed, not used in a direct mapping to the structure).
+
+- Once all base refactoring and mapping API tests are completed, we will begin migrating to AngularJS.
+

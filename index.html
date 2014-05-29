@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MCSDSS Redux</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+        <!--    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />-->
+        <!--    <link rel="stylesheet" href="styles/leaflet.css" />-->
+            <!--[if lte IE 8]>
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+            <![endif]-->
+        <link rel="stylesheet" type="text/css" href="styles/leaflet.draw.css" />
+            <!--[if lte IE 8]>
+            <link rel="stylesheet" href="/mapbox.js/assets/leaflet.draw.ie.css" />
+            <![endif]-->
+        <link rel="stylesheet" type="text/css" href="http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css" />
+        <link rel="stylesheet" type="text/css" href="styles/mcsdss-main.css" />
+    </head>
+
+    <body>
+        <div id="headerView">
+            <h2>Multi-Criteria Spatial Decision Support System (MCSDSS)</h2>
+            <p><em>version 2.0 | Encompass Labs | 2014.02.11</em></p>
+        </div>
+
+        <div id="navigationView">
+            <table id="navTable" class="center">
+                <tr>
+                    <td>Reset Map</td>
+                    <td>Map Legend</td>
+                    <td>Map Layers</td>
+                    <td>Map Settings</td>
+                    <td>Data Settings</td>
+                    <td>Chart Data</td>
+                    <td>Graph Data</td>
+                    <td>Export Data</td>
+                </tr>
+                <tr>
+                    <td><button id="resetMapBtn" class="mapResetBtnIcon" title="Reset Map"></button></td>
+                    <td><button id="showLegendBtn" class="mapLegendBtnIcon" title="Map Legend"></button></td>
+                    <td><button id="mapSettingsBtn" class="mapLayersBtnIcon" title="Map Layers"></button></td>
+                    <td><button id="not-assigned" class="mapSettingsBtnIcon" title="Map Settings"></button></td>
+                    <td><button id="not-assigned" class="dataSettingsBtnIcon" title="Data Settings&#10;Data Weighting&#10;"></button></td>
+                    <td><button id="chartDataBtn" class="dataChartBtnIcon" title="Chart Data"></button></td>
+                    <td><button id="not-assigned" class="dataGraphBtnIcon" title="Graph Data"></button></td>
+                    <td><button id="exportDataBtn" class="dataExportBtnIcon" title="Export Data"></button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="map"></div>
+
+        <div id="legendView">
+            <div id="legendViewChrome" class="dragBar">
+                <input type="button" id="legendFade" class="hideIt" value="Close">
+            </div>
+            <div id="Legend">
+            </div>
+        </div>
+
+        <div id="settingsView">
+            <div id="settingsViewChrome" class="dragBar">
+                <input type="button" id="selectFade" class="hideIt" value="Close">
+            </div>
+            <hr>
+            <div id="radio"></div>
+            <div id="slideDiv">
+                <input type="button" value="Generate Chart" id="generateChart">
+                <hr>
+                <div id="masterSet">
+                    <h3>RELATIVE WEIGHT OF THE TWO SETS</h3>
+                </div>
+                <div id="slide1Div">
+                    <h4>SET ONE (Adjust the weighting within the set)</h4>
+                </div>
+                <div id="slide2Div">
+                    <h4>SET TWO: ADJUST WEIGHT WITHIN THE SET</h4>
+                </div>
+            </div>
+        </div>
+
+        <div id="chartView">
+            <div id="chartViewChrome" class="dragBar">
+                <input type="button" id="chartFade" class="hideIt" value="Close">
+            </div>
+            <hr>
+            <div id="chart">
+                <h3>No Chart Currently Exists</h3>
+            </div>
+        </div>
+
+        <div id="exportView">
+            <div id="exportViewChrome" class="dragBar">
+                <input type="button" id="exportFade" class="hideIt" value="Close">
+            </div>
+            <hr>
+            <p id="ExMessage"></p>
+            <input type="text" id="textBox" class="keyboardInput">
+            <br>
+            <div id="keyboard"></div>
+            <input type="button" id="exSend" value="SEND">
+            <input type="button" id="exClear" value="CLEAR">
+        </div>
+
+        <div id="footerView">
+            <table class="center">
+                <tr>
+                    <td>Copyright &#169; 2014 Encompass Labs</td>
+                    <td><img src="images/icons/dark/appbar.information.circle.png" id="moreInfoIcon" title="Copyright Information" /></td>
+                    <!-- Place the copyright info in a popup window with icon. -->
+                    <!--
+                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+                    <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+                    <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                    -->
+                </tr>
+            </table>
+        </div>
+
+        <!-- 3rd Party JS Imports. -->
+        <script src="http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.js"></script>
+        <!--
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+        <script src="libs/leaflet-src.js"></script>
+        <script src="libs/leaflet.js"></script>
+        -->
+        <script type="text/javascript" src='libs/leaflet.draw.js'></script>
+        <!-- <script type="text/javascript" src="libs/kinetic-v5.0.1.min.js"></script> -->
+        <script type="text/javascript" src="libs/vkboardsc.js"></script>
+
+        <!-- MCSDSS Scripts. -->
+        <script type="text/javascript" src="scripts/mcsdssDataModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssConfigurationModule.js"></script>        
+        <script type="text/javascript" src="scripts/mcsdssMapModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssExportModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssSorterModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssProcessModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssSlidesetModule.js"></script>
+        <script type="text/javascript" src="scripts/mcsdssMainModule.js"></script>
+
+        <!-- Broken Scripts. -->
+        <script type="text/javascript" src="scripts/mcsdssUsersnapModule.js"></script>
+
+        <!-- Empty Scripts. -->
+        <!-- <script type="text/javascript" src="scripts/dummyModule.js"></script> -->
+        <!-- <script type="text/javascript" src="scripts/mcsdssMonolithicModule.js"></script> -->
+    </body>
+</html>

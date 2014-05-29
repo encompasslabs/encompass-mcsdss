@@ -1,0 +1,163 @@
+MCSDSS Mapping Capabilities
+2014.02.19 - John Gentle
+Encompass Labs - Center for Agile Technology - UT Austin
+
+-------------------------------------------------
+TOPICS:
+
+- General Information
+- Leaflet
+- Mapbox.js (Leaflet plugin)
+- TileMill
+- GeoJSON
+- MCSDSS Integration
+
+-------------------------------------------------
+GENERAL INFORMATION
+-------------------------------------------------
+
+Current Versions:
+
+Leaflet:		0.7.2
+Mapbox.js:		1.6.1
+TileMill:		0.10.1
+
+-------------------------------------------------
+LEAFLET
+-------------------------------------------------
+
+Leaflet has released Leaflet 0.7 and the core developers have joined the Mapbox team.
+
+Leaflet new features include:
+- upsaclaing tiles [ ie. zoom 19-20 when only 18 avaiulable. ]
+- IE11 touch device support, dropped support for IE6, dropped IE conditional comments (simnplifies snippet, styles moved to leaflet.css).
+- fixed iOS7 memory leak that crashed safari when too many layers (thousands of markers) were generated.
+- fixed crhome for android issue with disappearing tiles after zooming.
+- removed Eatrh-related hardcode in TileLayer that constrained some plugin integrations.
+- improved panning performance on complex pages with significant numbers of elements.
+- changed the way maxBounds works, no longer enforcing derived minZoom but restricts panning across lower zoom levels, and some tweaks to panning inertia or offset zooming.
+
+API Reference:		http://leafletjs.com/reference.html
+
+-------------------------------------------------
+MAPBOX
+-------------------------------------------------
+
+Mapbox has released Mapbox.js 1.0 which functions as a plugin to the existing Leaflet API, effectively combining the two platforms into one seamless framework for map generation and display.
+Mapbox is based off OpenStreetMaps.org and associated licensing concerns may apply if we look into commercialization.
+
+Mapbox new features include:
+- native vector support
+- combining tile and vector data
+- retains older Mapbox comnvenience functions 
+	[ ie. var map = L.mapbox.map('map', 'examples.map-zr0njcqy').setView([0, 0], 2); ]
+- improved Mapbox API 
+	[ ie. magic methods replaced by more specific methods - url() with setURL(url) and getURL() methods.
+		// v0
+		markersLayer.filter(function(f) { return f.properties.cool; });
+		var filter = markersLayer.filter();
+
+		// v1
+		markersLayer.setFilter(function(f) { return f.properties.cool; });
+		var filter = markersLayer.getFilter();
+	]
+- L.mapbox.map automatically updates when layers update, and controls like L.Control.Attribution will automatically show the attribution settings of new layers.
+- Support for Retina Tiles, WMS, polylines, etc.
+- Support for dynamic vector features [ ie. driving routes, polygons, complete GeoJSON files, etc.]
+	-- These utilize Leaflets implementations of HTML5 Canvas, SVG and VML.
+- Leaflet vector layers can utilize TileMill's deep styling controls and fast raster output for dynamic and interactive layers supporting lightweight features.
+- Utilization of Leaflets map plugins 
+	[ ie. full screen controls, point-in-polygon operations, leaflet marker clustering, leaflet-hash (for bookmarking specific views of the map as URLs), etc. ]
+- TDD supported for the Leaflet and Mapbox codebases (using Mocha with TravisCI).
+- Mapbox 1.0 is backwards compatible with previous Mapbox versions (by maintaining unique versioned URLs that are never updated or removed for each release).
+
+API Reference:		https://www.mapbox.com/mapbox.js/api/v1.6.1/
+
+-------------------------------------------------
+TILEMILL
+-------------------------------------------------
+
+TileMill features include:
+- Support for a variety of data sources [ ie. ESRI Shapefiles, KML, GeoJSON, GeoTIFF, PostGIS, CSV, SQLite ]
+- Access to public geodata (browsable)
+- Raster support (satellite data, aerial photography, etc.)
+- Mapnik based rendering library supporting RGBA color, TrueType fonts, raster, patterns and SVG transforms.
+- Textures (via alpha-channel support and multiple layers)
+- SVG markers - vector based (resize, transform, scalable)
+- Style control using Carto (CSS-like map styling).
+- Interactions (hover tooltips, clickable popups with UTF-8 grid)
+- Embedable graphs, images, links, etc.
+- Export to MBTiles format for cross-platform support
+- Mapbox integration
+
+crash course: 	https://www.mapbox.com/tilemill/docs/crashcourse/introduction/
+
+manuals: 		https://www.mapbox.com/tilemill/docs/manual/
+
+Carto: 			https://www.mapbox.com/tilemill/docs/manual/carto/
+
+Google Charts: 	https://www.mapbox.com/tilemill/docs/guides/google-charts/
+
+-------------------------------------------------
+GeoJSON & TopoJSON
+-------------------------------------------------
+--------------------
+GeoJSON
+--------------------
+
+GeoJSON is a format for encoding a variety of geographic data structures. 
+A GeoJSON object may represent a geometry, a feature, or a collection of features. 
+GeoJSON supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. 
+Features in GeoJSON contain a geometry object and additional properties, and a feature collection represents a list of features.
+
+http://www.geojson.org/geojson-spec.html
+
+GeoJSON is an open standard format for encoding collections of simple geographical features along with their non-spatial attributes using JavaScript Object Notation. 
+
+The features include:
+- points (therefore addresses and locations)
+- line strings (therefore streets, highways and boundaries)
+- polygons (countries, provinces, tracts of land)
+- multi-part collections of these types
+
+GeoJSON features need not represent entities of the physical world only; mobile routing and navigation apps, for example, might describe their service coverage using GeoJSON.
+
+The GeoJSON format differs from other GIS standards in that it was written and is maintained not by a formal standards organization, but by an Internet working group of developers.
+
+A notable offspring of GeoJSON is the TopoJSON format.
+
+--------------------
+TopoJSON
+--------------------
+
+TopoJSON is an extension of GeoJSON that encodes topology. Rather than representing geometries discretely, geometries in TopoJSON files are stitched together from shared line segments called arcs. This technique is similar to Matt Bloch’s MapShaper and the Arc/Info Export format, .e00. TopoJSON eliminates redundancy, allowing related geometries to be stored efficiently in the same file. For example, the shared boundary between California and Nevada is represented only once, rather than being duplicated for both states. A single TopoJSON file can contain multiple feature collections without duplication, such as states and counties. Or, a TopoJSON file can efficiently represent both polygons (for fill) and boundaries (for stroke) as two feature collections that share the same arc mesh.
+
+As a result, TopoJSON is substantially more compact than GeoJSON. The above shapefile of U.S. counties is 2.2M as a GeoJSON file, but only 436K as a boundary mesh, a reduction of 80.4% even without simplification. TopoJSON can also be more efficient to render since shared control points need only be projected once. To further reduce file size, TopoJSON uses fixed-precision delta-encoding for integer coordinates rather than floats. This is similar to rounding coordinate values (e.g., LilJSON), but with greater precision. Like GeoJSON, TopoJSON files are easily modified in a text editor and amenable to gzip compression.
+
+Lastly, encoding topology has numerous useful applications for maps and visualization. It facilitates geometry simplification that preserves the connectedness of adjacent features; this applies even across feature collections, such as simultaneous consistent simplification of state and county boundaries. Topology can also be used for Dorling cartograms and other techniques that need shared boundary information.
+
+https://github.com/mbostock/topojson/wiki
+
+Specification: https://github.com/topojson/topojson-specification/blob/master/README.md
+
+TopoJSON is a file format, console script, and a client side JavaScript library to store and process GIS data with geospatial topology. 
+
+A major improvement over GeoJSON is that TopoJSON files collects lines as arcs made of sequences of points, and then defines both complex polylines and polygons as sequences of previously defined arcs. Shapes are sequences of arcs, arcs are sequences of points. Each arc is defined once and only once, but could be called several times, thus reducing redundancy, decreasing the file size, easing edits of neighbor shapes in an unified edit on the common arc(s) thus avoiding artifacts apparitions. 
+
+The client side JavaScript library converts TopoJSON files into GeoJSON which allows other systems such D3.js to use this GIS data and generate SVG graphisms. 
+
+The console script allows the conversion of GIS files (shapefiles, GeoJSON, etc.) into lighter TopoJSON files, as well as various basic processing such simplification, merge, conserve selected properties, append external data, etc.
+
+TopoJSON Video demo: http://vimeopro.com/openstreetmapus/state-of-the-map-us-2013/video/68099164
+
+Mike Bostock (TopoJSON creator) has several articles:
+- http://bost.ocks.org/mike/topology/
+- http://bost.ocks.org/mike/map/
+
+-------------------------------------------------
+MCSDSS INTEGRATION
+-------------------------------------------------
+
+TBD...
+
+-------------------------------------------------
